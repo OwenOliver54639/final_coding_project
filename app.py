@@ -41,6 +41,7 @@ def login():
             return redirect(url_for("secret"))
         else:
             error = "Incorrect username or password"
+            
 
     return render_template("login.html", error=error)
 
@@ -185,6 +186,7 @@ def delete(id):
 
     return redirect(url_for("dashboard"))
 """
+
 
 
 @app.route("/logout")

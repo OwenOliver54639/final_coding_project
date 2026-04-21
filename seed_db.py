@@ -21,7 +21,25 @@ def seed_database():
     
     # Sample users with passwords
     sample_users = [
-        ("alice", "Password123!"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++
+
+
+
+       ("alice", "Password123!"),
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
     ]
@@ -47,3 +65,4 @@ def seed_database():
 
 if __name__ == "__main__":
     seed_database()
+
