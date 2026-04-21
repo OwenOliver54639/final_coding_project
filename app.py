@@ -194,6 +194,7 @@ def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
 
+
 # ---------- RUN ----------
 if __name__ == "__main__":
     app.run(debug=True)

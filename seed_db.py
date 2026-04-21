@@ -43,6 +43,11 @@ def seed_database():
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
     ]
+    sample_harvester = [
+        ("Daj", "Password123!"),
+   ("bob", "SecurePass456@"),
+        ("charlie", "MyPassword789#"),
+    ]
     
     try:
         for username, password in sample_users:
