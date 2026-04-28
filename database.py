@@ -24,8 +24,6 @@ def init_db():
         image TEXT,
         )
         """) 
-        conn.commit()
-        conn.close()
 
         for username, password in sample_users:
             hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
@@ -41,7 +39,6 @@ def init_db():
     
     finally:
         conn.close()
-        
-    conn.commit()
+
     print("\nDatabase seeding complete!")
         
