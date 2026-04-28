@@ -18,20 +18,12 @@ def init_db():
             )
         """)
         conn.excute("""
-        CREATE TABLE IF NOT EXISTS works(
-        title TEXT PRIMARY KEY,
-        author TEXT,
-        image TEXT,
-        )
-        """) 
-
-        for username, password in sample_users:
-            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            conn.execute(
-                "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, hashed_pw)
+            CREATE TABLE IF NOT EXISTS works(
+            title TEXT PRIMARY KEY,
+            author TEXT,
+            image TEXT,
             )
-            print(f"Created user: {username}")
+        """) 
             
     except Exception as e:
         conn.rollback()
