@@ -3,30 +3,45 @@ import bcrypt
 
 
 def get_db():
-    conn = sqlite3.connect("users.db")
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def get_entries_db():
-    conn = sqlite3.connect("entries.db")
+    conn = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
     return conn
 
 def init_db():
-    conn = get_db()
-    e_conn = get_entries_db()
-    # Add your new table between lines 15 & 16.
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            username TEXT PRIMARY KEY,
-            password TEXT
+    try:
+        conn = get_db()
+        # Add your new table between lines 15 & 16.
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                username TEXT PRIMARY KEY,
+                password TEXT
+            )
+        """)
+        conn.excute("""
+        CREATE TABLE IF NOT EXISTS works(
+        title TEXT PRIMARY KEY,
+        author TEXT,
+        image TEXT,
         )
-    """)
-    conn.excute("""
-      CREATE TABLE IF NOT EXISTS user(
-      username TEXT PRIMARY KEY,
-      password TEXT
-      )
-      """) 
+        """) 
+        conn.commit()
+        conn.close()
+
+        for username, password in sample_users:
+            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            conn.execute(
+                "INSERT INTO users (username, password) VALUES (?, ?)",
+                (username, hashed_pw)
+            )
+            print(f"Created user: {username}")
+            
+    except Exception as e:
+        conn.rollback()
+        print(f"Error: {e}")
+    
+    finally:
+        conn.close()
+        
     conn.commit()
-    conn.close()
+    print("\nDatabase seeding complete!")
+        

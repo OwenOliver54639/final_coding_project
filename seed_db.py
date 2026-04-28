@@ -21,32 +21,14 @@ def seed_database():
     
     # Sample users with passwords
     sample_users = [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-+
-
-
-
        ("alice", "Password123!"),
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
     ]
-    sample_harvester = [
-        ("Daj", "Password123!"),
-   ("bob", "SecurePass456@"),
-        ("charlie", "MyPassword789#"),
+    sample_work = [
+        ("Dove of Peace", "Picasso", "http://kuyftyktfk"),
+        ("Starry Night", "Vicent van gogh", "http://ksbcjAZVBzmxk"),
+        ("Triple T", "Google Gemini", "http://bgtefjtlas"),
     ]
     
     try:
@@ -57,6 +39,14 @@ def seed_database():
                 (username, hashed_pw)
             )
             print(f"Created user: {username}")
+        
+        for title, author in sample_works:
+            hashed_pw = bcrypt.hashpw(author.encode("utf-8"), bcrypt.gensalt())
+            conn.execute(
+                "INSERT INTO works (title, author, image) VALUES (?, ?, ?)",
+                (title, author, image)
+            )
+            print(f"Created work: {title}")
         
         conn.commit()
         print("\nDatabase seeding complete!")
