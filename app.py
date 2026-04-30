@@ -118,15 +118,24 @@ def create():
         return redirect(url_for("login"))
 
     if request.method == "POST":
+
         # TODO: Get form data (title, content)
+        title = request.form["title"].strip()
+        content = request.form["content"].strip()
 
         # TODO: Connect to database
+        conn = get_db
 
         # TODO: Insert into entries table
         # IMPORTANT: include session["user"]
+        conn.execute(
+            "INSERT INTO entries (title, message) VALUE"
+            (title, f"{content}")
+            )
 
         # TODO: Commit and close
-
+        conn.commit()
+        conn.close()
         return redirect(url_for("dashboard"))
 
     return render_template("create.html")
